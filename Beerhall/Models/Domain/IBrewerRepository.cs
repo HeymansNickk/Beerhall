@@ -7,7 +7,7 @@ namespace Beerhall.Models.Domain
 {
     public interface IBrewerRepository
     {
-        Brewer GetBy(int brewerID);
+        Brewer GetBy(int BrewerId);
         IEnumerable<Brewer> GetAll();
         void Add(Brewer brewer);
         void Delete(Brewer brewer);
