@@ -36,17 +36,20 @@ namespace Beerhall.Data.Repository
 
         public Brewer GetBy(int brewerID)
         {
-            return _brewers.SingleOrDefault(b => b.BrewerId == brewerID);
+            return _brewers.Include(b => b.Location)
+                .SingleOrDefault(b => b.BrewerId == brewerID);
         }
 
         public Brewer GetByWithBeers(int brewerId)
         {
-            return _brewers.Include(b => b.Beers).SingleOrDefault(b => b.BrewerId == brewerId);
+            return _brewers.Include(b => b.Beers)
+                .SingleOrDefault(b => b.BrewerId == brewerId);
         }
 
         public IEnumerable<Brewer> GetAllWithBeers()
         {
-            return _brewers.Include(b => b.Location).Include(b => b.Beers).ToList();
+            return _brewers.Include(b => b.Location)
+                .Include(b => b.Beers).ToList();
         }
 
         public void SaveChanges()

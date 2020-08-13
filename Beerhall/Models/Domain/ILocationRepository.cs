@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Beerhall.Models.Domain
 {
-    interface ILocationRepository
+    public interface ILocationRepository
     {
         Location GetBy(string postalCode);
         IEnumerable<Location> GetAll();
