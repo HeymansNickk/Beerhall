@@ -2,7 +2,6 @@
 using Xunit;
 using Beerhall.Models.Domain;
 using System.Linq;
-using NUnit.Framework;
 
 namespace Beerhall.Tests.Models.Domain
 {
@@ -22,12 +21,12 @@ namespace Beerhall.Tests.Models.Domain
         public void NewBrewer_CorrectName_CreatesBrewer()
         {
             Brewer brewer = new Brewer("Rodenbach");
-            Assert.Equals("Rodenbach", brewer.Name);
+            Assert.Equal("Rodenbach", brewer.Name);
             Assert.Null(brewer.Turnover);
-            Assert.Equals(0, brewer.NrOfBeers);
+            Assert.Equal(0, brewer.NrOfBeers);
             Assert.Null(brewer.Location);
             Assert.Null(brewer.Street);
-            Assert.Equals(0, brewer.BrewerId);
+            Assert.Equal(0, brewer.BrewerId);
         }
 
         [Fact]
@@ -35,10 +34,10 @@ namespace Beerhall.Tests.Models.Domain
         {
             Location veurne = new Location { Name = "Veurne", PostalCode = "8630" };
             Brewer brouwer = new Brewer("Bachten de Kupe", veurne, "Kerkstraat 20") { Turnover = 20000 };
-            Assert.Equals("Bachten de Kupe", brouwer.Name);
-            Assert.Equals("Veurne", brouwer.Location.Name);
-            Assert.Equals("Kerkstraat 20", brouwer.Street);
-            Assert.Equals(20000, brouwer.Turnover);
+            Assert.Equal("Bachten de Kupe", brouwer.Name);
+            Assert.Equal("Veurne", brouwer.Location.Name);
+            Assert.Equal("Kerkstraat 20", brouwer.Street);
+            Assert.Equal(20000, brouwer.Turnover);
         }
 
         [Fact]
@@ -47,7 +46,7 @@ namespace Beerhall.Tests.Models.Domain
             Assert.Throws<ArgumentException>(() => new Brewer("Rodenbach") { Turnover = -2000 });
         }
 
-        [Xunit.Theory]
+        [Theory]
         [InlineData(null)]
         [InlineData("")]
         [InlineData("    ")]
@@ -65,7 +64,7 @@ namespace Beerhall.Tests.Models.Domain
         {
             int nrOfBeersBeforeAdd = _bockor.NrOfBeers;
             _bockor.AddBeer("HoGent beer", 55.0D);
-            Assert.Equals(nrOfBeersBeforeAdd + 1, _bockor.NrOfBeers);
+            Assert.Equal(nrOfBeersBeforeAdd + 1, _bockor.NrOfBeers);
         }
 
         [Fact]
@@ -83,7 +82,7 @@ namespace Beerhall.Tests.Models.Domain
             int nrOfBeersBeforeDelete = _bockor.NrOfBeers;
             Beer aBeer = _bockor.Beers.First();
             _bockor.DeleteBeer(aBeer);
-            Assert.Equals(nrOfBeersBeforeDelete - 1, _bockor.NrOfBeers);
+            Assert.Equal(nrOfBeersBeforeDelete - 1, _bockor.NrOfBeers);
         }
 
         [Fact]

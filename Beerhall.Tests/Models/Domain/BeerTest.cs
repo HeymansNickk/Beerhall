@@ -1,13 +1,13 @@
 ﻿using System;
-using Beerhall.Models.Domain;
-using NUnit.Framework;
 using Xunit;
+using Beerhall.Models.Domain;
 
 namespace Beerhall.Tests.Models.Domain
 {
     public class BeerTest
     {
-        [Xunit.Theory]
+        #region Constructor
+        [Theory]
         [InlineData(null)]
         [InlineData("")]
         [InlineData("    ")]
@@ -17,18 +17,22 @@ namespace Beerhall.Tests.Models.Domain
             Assert.Throws<ArgumentException>(() => new Beer(name));
         }
 
-        [Fact]
-        public void AlcoholKnown_AlcoholByVolumeNotSet_ReturnsFalse()
-        {
-            var beer = new Beer("New beer");
-            Assert.False(beer.AlcoholKnown);
-        }
+        #endregion
 
+        #region AlcholKnown
         [Fact]
         public void AlcoholKnown_AlcoholByVolumeSet_ReturnsTrue()
         {
-            var beer = new Beer("New beer") {AlcoholByVolume = 8.5D};
+            Beer beer = new Beer("New beer") { AlcoholByVolume = 8.5D };
             Assert.True(beer.AlcoholKnown);
         }
+
+        [Fact]
+        public void AlcoholKnown_AlcoholByVolumeNotSet_ReturnsFalse()
+        {
+            Beer beer = new Beer("New beer");
+            Assert.False(beer.AlcoholKnown);
+        }
+        #endregion
     }
 }

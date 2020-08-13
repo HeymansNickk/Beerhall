@@ -16,7 +16,7 @@ namespace Beerhall.Models.Domain
         #region Properties
 
         public double? AlcoholByVolume { get; set; }
-        public bool AlcoholKnown { get; }
+        public bool AlcoholKnown => AlcoholByVolume.HasValue;
         public int BeerId { get; set; }
         public string Description { get; set; }
         public string Name
