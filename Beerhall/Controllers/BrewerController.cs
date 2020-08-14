@@ -112,10 +112,19 @@ namespace Beerhall.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeleteConfirmed(int id)
         {
-            Brewer brewer = _brewerRepository.GetBy(id);
-            _brewerRepository.Delete(_brewerRepository.GetBy(id));
-            _brewerRepository.SaveChanges();
-            TempData["Message"] = $"You succesfully deleted brewer {brewer.Name}";
+            Brewer brewer = null;
+            try
+            {
+                brewer = _brewerRepository.GetBy(id);
+                _brewerRepository.Delete(_brewerRepository.GetBy(id));
+                _brewerRepository.SaveChanges();
+                TempData["Message"] = $"You succesfully deleted brewer {brewer.Name}";
+            }
+            catch
+            {
+                TempData["error"] = $"Sorry, something went wrong, brewer {brewer?.Name} was not deleted";
+            }
+
             return RedirectToAction(nameof(Index));
         }
 
