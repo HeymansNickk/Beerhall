@@ -59,7 +59,7 @@ namespace Beerhall.Controllers
                 brewer = _brewerRepository.GetBy(id);
                 MapBrewerEditViewModelToBrewer(brewerEditViewModel, brewer);
                 _brewerRepository.SaveChanges();
-                TempData["message"] = "$You successfully updated brewer {brewer.Name}.";
+                TempData["message"] = $"You successfully updated brewer {brewer.Name}.";
             }
             catch
             {
@@ -89,11 +89,13 @@ namespace Beerhall.Controllers
                 MapBrewerEditViewModelToBrewer(brewerEditViewModel, brewer);
                 _brewerRepository.Add(brewer);
                 _brewerRepository.SaveChanges();
+                TempData["Message"] = $"You succesfully created brewer {brewer.Name}";
             }
             catch
             {
                 TempData["error"] = "Sorry, something went wrong, the brewer was not added...";
             }
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -110,8 +112,10 @@ namespace Beerhall.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeleteConfirmed(int id)
         {
+            Brewer brewer = _brewerRepository.GetBy(id);
             _brewerRepository.Delete(_brewerRepository.GetBy(id));
             _brewerRepository.SaveChanges();
+            TempData["Message"] = $"You succesfully deleted brewer {brewer.Name}";
             return RedirectToAction(nameof(Index));
         }
 
