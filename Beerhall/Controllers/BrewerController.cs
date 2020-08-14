@@ -97,9 +97,25 @@ namespace Beerhall.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        
         #endregion
 
+        #region Delete
+
+        public IActionResult Delete(int id)
+        {
+            ViewData[nameof(Brewer.Name)] = _brewerRepository.GetBy(id).Name;
+            return View();
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            _brewerRepository.Delete(_brewerRepository.GetBy(id));
+            _brewerRepository.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+
+        #endregion
         private SelectList GetLocationsAsSelectList()
         {
             return new SelectList(
